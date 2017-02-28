@@ -1,0 +1,103 @@
+{{extend 'layout.html'}}
+
+<style>
+#suggestions { position: relative; }
+.suggestions { background: white; border: solid 1px #55A6C8; }
+.suggestions DIV { padding: 2px 4px 2px 4px; }
+</style>
+<br><br>
+<h2 class="makecenter">{{=image.title}}</h2>
+<br>
+<center>
+    <h2 class="makeright">
+        Posted by <a href='{{=URL("profile",args=image.user)}}'>{{=image.author}}
+        </a>
+        <br />
+        at {{=image.created_on}}
+        <br />
+    </h2>
+<br>
+<img width="800px" height="400px"
+     src="{{=URL('download',args=image.file)}}"/>
+    <br>
+</center>
+<h2 ><div style="padding-left:210px" id="callback-target">Likes: {{=image.likes}}</div></h2>
+<div style="padding-left:210px;">
+    
+{{=SPAN(A(IMG(_src='../../static/images/emoticons/p1.jpg'), callback=URL('liking', args=1), target="callback-target"), _id="p1")}}
+{{=SPAN(A(IMG(_src='../../static/images/emoticons/p2.jpg'), callback=URL('liking', args=2), target="callback-target"), _id="p2")}}
+{{=SPAN(A(IMG(_src='../../static/images/emoticons/p3.jpg'), callback=URL('liking', args=3), target="callback-target"), _id="p3")}}
+{{=SPAN(A(IMG(_src='../../static/images/emoticons/p4.jpg'), callback=URL('liking', args=4), target="callback-target"), _id="p4")}}
+{{=SPAN(A(IMG(_src='../../static/images/emoticons/p5.jpg'), callback=URL('liking', args=5), target="callback-target"), _id="p5")}}
+</div>
+<br><br>
+
+{{=LOAD('default','tag_form.load',ajax=True)}}<br>
+{{=LOAD('default','tag_list.load',ajax=True, timeout=1000,times='infinity')}}<br>
+    
+<h3 class="makeleft">
+    Description
+</h3>
+<pre>
+<h4>
+{{=XML(image.description,sanitize=True)}}
+</h4>
+</pre>
+    </p>
+
+<h2 class="makeleft">
+    Posts:
+
+<div id="tar-for"></div>
+
+
+{{=LOAD('default','post_list.load',args=image.id,ajax=True, timeout=1000,times='infinity')}}
+</h2>
+<style>
+#suggestions { position: relative; }
+.suggestions { background: white; border: solid 1px #55A6C8; }
+.suggestions DIV { padding: 2px 4px 2px 4px; }
+</style>
+<form id="myform" name="myform">
+    <input name="body" id="body" type='text'/>
+    <br />
+    <div style="position: absolute;" id="suggestions"
+     class="suggestions"></div>
+    <input type="submit" />
+</form>
+<script>
+     jQuery("#body").keyup(function(){
+     ajax('user_selector', ['body'], 'suggestions')
+          return false;
+
+     }
+                           );
+ </script>
+
+<script>
+     jQuery('#myform').submit(function() {
+     ajax('{{=URL('post')}}', ['body'], 'tar-for');
+     document.getElementById('body').value=''
+     return false;
+     });
+</script>
+
+{{=form_rep}}
+
+<script>
+    jQuery(document).ready(function(){
+    jQuery('#report_reason__row').hide();
+    jQuery('#report_submit__row').hide();
+    jQuery('#report_Report_This').change(function(){
+    if(jQuery('#report_Report_This').attr('checked')){
+        jQuery('#report_reason__row').hide();
+        jQuery('#report_submit__row').hide();
+    }
+    else{
+        jQuery('#report_reason__row').show();
+        jQuery('#report_submit__row').show();
+        jQuery('#report_Report_This__row').hide();
+    }});
+    });
+    
+</script>

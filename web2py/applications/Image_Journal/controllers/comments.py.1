@@ -1,0 +1,2 @@
+def post():
+    return dict( form = SQLFORM( db.post.post_id == session.image ), comments = db(db.post).select())

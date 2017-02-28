@@ -1,0 +1,61 @@
+db = DAL("sqlite://storage.sqlite")
+from gluon.tools import Auth
+auth = Auth(db)
+auth.define_tables(username=True)
+db.define_table('image',
+                Field('user', 'reference auth_user',writable=False, readable=False),
+                Field('title'),
+                Field('file', 'upload',requires = IS_NOT_EMPTY()),
+                Field('created_on', 'datetime', default=request.now, writable=False, readable=False,requires = IS_NOT_EMPTY()),
+                Field('author',writable=False,readable=False,requires = IS_NOT_EMPTY()),
+                Field('email',writable=False,readable=False,requires = IS_NOT_EMPTY()),
+                Field('username',writable=False,readable=False,requires = IS_NOT_EMPTY()),
+                Field('description', 'text',requires = IS_NOT_EMPTY()),
+                Field('likes','integer',readable=False,writable=False,default=0,requires = IS_NOT_EMPTY()),
+                auth.signature,
+                format = '%(title)s'
+               )
+db.image.description.requires = IS_NOT_EMPTY()
+db.image.file.requires = IS_NOT_EMPTY()
+
+db.define_table('like',
+                Field('user', 'reference auth_user'),
+                Field('like_id', 'reference image'),
+                Field('level', 'integer'),
+                auth.signature
+               )
+
+
+
+db.define_table('report',
+                Field('Report_This','boolean'),
+                Field('user', 'reference auth_user',writable=False, readable=False),
+                Field('report_id', 'reference image',writable=False,readable=False),
+                Field('report_by', 'text',writable=False, readable=False,requires = IS_NOT_EMPTY()),
+                Field('report_against', 'text',writable=False, readable=False,requires = IS_NOT_EMPTY()),
+                Field('reason', 'text',requires=IS_NOT_EMPTY()),
+                auth.signature
+                )
+db.define_table('post',
+                Field('user', 'reference auth_user',writable=False, readable=False),
+                Field('post_id', 'reference image',writable=False, readable=False),
+                Field('body', 'text',label='Your comment',requires = IS_NOT_EMPTY()),
+                Field('author','text',writable=False, readable= False,requires = IS_NOT_EMPTY()),
+                auth.signature
+                )
+
+db.define_table('tag',
+                Field('user', 'reference auth_user',writable=False, readable=False),
+                Field('tag_id', 'reference image',writable=False,readable=False),
+                Field('link', 'text',writable=False,readable=False),
+                Field('person', 'text',label='Tag someone', requires = [IS_IN_DB(db, db.auth_user.username )] ),
+                Field('tagged_by', 'text',writable=False, readable=False,requires = IS_NOT_EMPTY()),
+                auth.signature
+                )
+db.tag.person.widget = SQLFORM.widgets.autocomplete(request, db.auth_user.username, limitby=(0,10), min_length=0)
+
+db.auth_user.password.requires=IS_STRONG(min=8,special=1,upper=1,lower=1,number=1)
+db.auth_user.password.requires=CRYPT()
+db.define_table('comment_post',
+               Field('body','text',label='Your comment'),
+               auth.signature)

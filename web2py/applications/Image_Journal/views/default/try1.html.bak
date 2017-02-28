@@ -1,0 +1,8 @@
+{{include 'web2py_ajax.html'}}
+{{=A(IMG(_src='../../static/images/emoticons/p1.jpg'), _id="p1")}}
+{{=A(IMG(_src='../../static/images/emoticons/p2.jpg'), callback=URL('liking', args=2), target="callback-target", _id="p2")}}
+{{=A(IMG(_src='../../static/images/emoticons/p3.jpg'), callback=URL('liking', args=3), target="callback-target", _id="p3")}}
+{{=A(IMG(_src='../../static/images/emoticons/p4.jpg'), callback=URL('liking', args=4), target="callback-target", _id="p4")}}
+{{=A(IMG(_src='../../static/images/emoticons/p5.jpg'), callback=URL('liking', args=5), target="callback-target", _id="p5")}}
+
+<div id="callback-target">Likes : {{=image.likes}}</div>

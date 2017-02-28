@@ -1,0 +1,41 @@
+{{extend 'layout.html'}}
+{{block header}}
+     <header class="container-fluid background">
+      <div class="jumbotron text-center">
+        {{if response.title:}}
+        <h1>{{=response.title}}
+          <small>{{=response.subtitle or ''}}</small></h1>
+        {{pass}}
+      </div>
+    </header>
+{{end}}
+<table class="table" style="width:100%">
+    <tr>
+        <td width="22.5%"><h2>Recipe Name</h2></td>
+        <td width="22.5%"><h2>Time</h2></td>
+        <td width="25%"><h2>Image</h2></td>
+        <td width="24%"><h2>Description</h2></td>
+        <td width="10%"><h2>Likes</h2></td>
+    </tr>
+</table>
+<table class="table">
+    {{for image in images:}}
+    {{if image.email == auth.user.email:}}
+    <tr>
+         <td width=22%><h4><a href ="{{=URL('my_show',args=image.id)}}" >{{=image.title}}</a></h4></td>
+        <td width=6%><h4>{{=image.created_on}}</h4></td>
+<td width=33%>
+    <center>
+        <img width="200px" height="100px"
+             src="{{=URL('download',args=image.file)}}"/>
+    </center>
+</td>
+         <td width=22%>
+             <h4>{{=image.description}}</h4>
+        </td>
+        <td width=6%>
+             <h4>{{=image.likes}}</h4>
+        </td>
+    {{pass}}
+    {{pass}}
+</table>

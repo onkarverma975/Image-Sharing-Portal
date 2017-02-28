@@ -1,0 +1,54 @@
+{{extend 'layout.html'}}
+{{block header}}
+
+     <header class="container-fluid background">
+      <div class="jumbotron text-center">
+        {{if response.title:}}
+        <h1>{{=response.title}}
+          <small>{{=response.subtitle or ''}}</small></h1>
+        {{pass}}
+      </div>
+    </header>
+{{end}}
+<h2 class="makecenter">
+        Trending Images
+</h2>
+<br>
+<br>
+<div class="homepage">
+    {{for image in images:}}
+    
+        <a href ="{{=URL('show',args=image.id)}}" >
+        <img width="400px" height="200px"
+             src="{{=URL('download',args=image.file)}}"/>
+        </a>
+    
+        
+             <h4>number of likes: {{=image.likes}}</h4>
+    <h4>
+    {{=LOAD('default','post_list.load',args=image.id,ajax=True, timeout=1000,times='infinity')}}
+    </h4>
+             <br><br>
+        
+    
+    {{pass}}
+</div>
+
+<div class="likedogchasing">
+    <a href={{=URL("prev")}}>
+    <button type='button' >
+    prev
+    </button>
+</a>
+<a href={{=(URL('upload'))}}>
+    <button type='button'>
+    Add a image
+    </button>
+</a>
+<a href={{=URL("next")}}>
+    <button type='button' >
+    next
+    </button>
+</a>
+</div>
+<br>

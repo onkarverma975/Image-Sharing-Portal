@@ -1,0 +1,162 @@
+{{include 'web2py_ajax.html'}}
+{{=A(IMG(_src='../../static/images/emoticons/p1.jpg'), _id="p1")}}
+{{=A(IMG(_src='../../static/images/emoticons/p2.jpg'), callback=URL('liking', args=2), target="callback-target", _id="p2")}}
+{{=A(IMG(_src='../../static/images/emoticons/p3.jpg'), callback=URL('liking', args=3), target="callback-target", _id="p3")}}
+{{=A(IMG(_src='../../static/images/emoticons/p4.jpg'), callback=URL('liking', args=4), target="callback-target", _id="p4")}}
+{{=A(IMG(_src='../../static/images/emoticons/p5.jpg'), callback=URL('liking', args=5), target="callback-target", _id="p5")}}
+
+<div id="callback-target">Likes : {{=image.likes}}</div>
+<script>
+    jQuery('#p1').click(
+    function(){
+    ajax('{{=URL('liking')}}', [1], 'callback-target');
+        jQuery('#p1c').show();
+    jQuery('#p1').hide();
+    jQuery('#p2').hide();
+    jQuery('#p3').hide();
+    jQuery('#p4').hide();
+    jQuery('#p5').hide();
+    return false;
+});
+    jQuery('#p2').click(
+    function(){
+    jQuery('#p2c').show();
+    jQuery('#p1').hide();
+    jQuery('#p2').hide();
+    jQuery('#p3').hide();
+    jQuery('#p4').hide();
+    jQuery('#p5').hide();
+    return false;
+},1000);
+    jQuery('#p3').click(
+    function(){
+
+    jQuery('#p3c').show();
+    jQuery('#p1').hide();
+    jQuery('#p2').hide();
+    jQuery('#p3').hide();
+    jQuery('#p4').hide();
+    jQuery('#p5').hide();
+    return false;
+},1000);
+    jQuery('#p4').click(
+    function(){
+
+    jQuery('#p4c').show();
+    jQuery('#p1').hide();
+    jQuery('#p2').hide();
+    jQuery('#p3').hide();
+    jQuery('#p4').hide();
+    jQuery('#p5').hide();
+    return false;
+},1000);
+    jQuery('#p5').click(
+    function(){
+
+    jQuery('#p5c').show();
+    jQuery('#p1').hide();
+    jQuery('#p2').hide();
+    jQuery('#p3').hide();
+    jQuery('#p4').hide();
+    jQuery('#p5').hide();
+    return false;
+},1000);
+    jQuery('#p1c').click(
+    function(){
+    jQuery('#p1c').hide();
+    jQuery('#p1').show();
+    jQuery('#p2').show();
+    jQuery('#p3').show();
+    jQuery('#p4').show();
+    jQuery('#p5').show();
+    return false;
+},1000);
+    jQuery('#p2c').click(
+    function(){
+    jQuery('#p2c').hide();
+    jQuery('#p1').show();
+    jQuery('#p2').show();
+    jQuery('#p3').show();
+    jQuery('#p4').show();
+    jQuery('#p5').show();
+    return false;
+},1000);
+    jQuery('#p3c').click(
+    function(){
+    jQuery('#p3c').hide();
+    jQuery('#p1').show();
+    jQuery('#p2').show();
+    jQuery('#p3').show();
+    jQuery('#p4').show();
+    jQuery('#p5').show();
+    return false;
+},1000);
+    jQuery('#p4c').click(
+    function(){
+    jQuery('#p4c').hide();
+    jQuery('#p1').show();
+    jQuery('#p2').show();
+    jQuery('#p3').show();
+    jQuery('#p4').show();
+    jQuery('#p5').show();
+    return false;
+},1000);
+    jQuery('#p5c').click(
+    function(){
+    jQuery('#p5c').hide();
+    jQuery('#p1').show();
+    jQuery('#p2').show();
+    jQuery('#p3').show();
+    jQuery('#p4').show();
+    jQuery('#p5').show();
+    return false;
+},1000);
+</script>
+
+</div>
+<script>
+{{if flag==0:}}
+	jQuery('#p1').show();
+    jQuery('#p2').show();
+    jQuery('#p3').show();
+    jQuery('#p4').show();
+    jQuery('#p5').show();
+{{elif flag==1:}}
+	jQuery('#p1').hide();
+    jQuery('#p2').hide();
+    jQuery('#p3').hide();
+    jQuery('#p4').hide();
+    jQuery('#p5').hide();
+    jQuery('#p1c').show();
+{{elif flag==2:}}
+	jQuery('#p1').hide();
+    jQuery('#p2').hide();
+    jQuery('#p3').hide();
+    jQuery('#p4').hide();
+    jQuery('#p5').hide();
+    jQuery('#p2c').show();
+{{elif flag==3:}}
+	jQuery('#p1').hide();
+    jQuery('#p2').hide();
+    jQuery('#p3').hide();
+    jQuery('#p4').hide();
+    jQuery('#p5').hide();
+    jQuery('#p3c').show();
+{{elif flag==4:}}
+	jQuery('#p1').hide();
+    jQuery('#p2').hide();
+    jQuery('#p3').hide();
+    jQuery('#p4').hide();
+    jQuery('#p5').hide();
+    jQuery('#p4c').show();
+{{elif flag==5:}}
+	jQuery('#p1').hide();
+    jQuery('#p2').hide();
+    jQuery('#p3').hide();
+    jQuery('#p4').hide();
+    jQuery('#p5').hide();
+    jQuery('#p5c').show();
+
+{{pass}}
+
+</script>

@@ -1,0 +1,6 @@
+{{for tag in comments:}}
+<div>
+On {{=tag.created_on}} {{=tag.created_by.first_name}}
+    tagged <a href="{{=URL('profile',args = db( db.auth_user.username == tag.person ).select().first().id)}}">{{=tag.person}}</a>
+</div>
+{{pass}}

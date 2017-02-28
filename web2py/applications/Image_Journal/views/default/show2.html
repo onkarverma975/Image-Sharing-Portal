@@ -1,0 +1,68 @@
+{{extend 'layout.html'}}
+<h1 class="makecenter">Image: {{=image.title}}</h1>
+
+
+<input id="hoola"></input>
+
+{{=A('Add tags', callback=URL('tagging', args=[image.id]), target="callback-tag", _class="btn btn-default", _id="bl1")}}
+
+{{for posts in tags:}}
+<div class="class=callback-tag">
+{{=posts.created_by.first_name}}
+tagged <blockquote class="post_body">{{=posts.person}}</blockquote>
+</div>
+{{pass}}
+
+<center>
+<img width="800px" height="400px"
+     src="{{=URL('download',args=image.file)}}"/>
+</center>
+    <h2>
+        Posted by {{=image.author}}
+        <br />
+        at {{=image.created_on}}
+        <br />
+    </h2>
+<h3>
+    Description
+</h3>
+<pre>
+<h4>
+{{=XML(image.description,sanitize=True)}}
+</h4>
+</pre>
+    </p>
+<h2><div id="callback-target">Likes: {{=image.likes}}</div></h2>
+{{pass}}
+{{=A('Like this', callback=URL('liking', args=[image.id, image.likes]), target="callback-target", _class="btn btn-default", _id="bl1")}}
+{{=A('Unlike this', callback=URL('disliking', args=[image.id, image.likes]), target="callback-target", _class="btn btn-default", _id="bl2")}}
+{{pass}}
+</div>
+<script>
+{{if (flag==True):}}
+	jQuery('#bl1').hide();
+{{else:}}
+	jQuery('#bl2').hide();
+{{pass}}
+jQuery('#bl1').click(
+    function(){
+        jQuery('#bl1').hide();
+               jQuery('#bl2').show()
+    }
+);
+jQuery('#bl2').click(
+    function(){
+    jQuery('#bl2').hide();
+        jQuery('#bl1').show()
+}
+                    );
+</script>
+
+<h1>
+    Posts:
+</h1>
+{{=LOAD('default','post.load',ajax=True,times='infinity',timeout=10000)}}
+<a href="{{=URL('report', args=[image.id])}}">
+<button>Report This
+</button>
+</a>

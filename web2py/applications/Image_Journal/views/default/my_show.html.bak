@@ -1,0 +1,36 @@
+{{extend 'layout.html'}}
+<h2>Image: {{=image.title}}</h2>
+<center>
+<img width="800px" height="400px"
+     src="{{=URL('download',args=image.file)}}"/>
+</center>
+    <h2>
+        Posted by {{=image.author}}
+        <br />
+          at {{=image.created_on}}
+        <br />
+    </h2>
+<h3>
+    Description
+</h3>
+<pre>
+<h4>
+{{=XML(image.description,sanitize=True)}}
+</h4>
+</pre>
+<h3>
+    Procedure
+</h3>
+<pre>
+
+<h4>
+
+      {{=XML(image.procedure,sanitize=True)}}
+</h4>
+</pre>
+    </p>
+<a href={{=URL("edit",args=image.id)}}>
+    <button type='button' >
+    edit
+    </button>
+</a>

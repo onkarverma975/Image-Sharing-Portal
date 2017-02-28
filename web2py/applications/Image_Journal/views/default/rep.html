@@ -1,0 +1,17 @@
+{{extend 'layout.html'}}
+<br><br>
+<table class="modifyingtable">
+    <tr class="tableheadings">
+        <td>Image</td>
+        <td>Image Title</td>
+        <td>Report By</td>
+        <td>Reason</td>
+    </tr>
+    {{for image in reports:}}
+    <tr><td><a href ="{{=URL('manage')}}" ><img width="300px" height="150px" src="{{=URL('download',args=db( db.image.id == image.report_id ).select().first().file)}}"/></a></td>
+        <td><a href ="{{=URL('manage')}}" >{{=db( db.image.id == image.report_id ).select().first().title}}</a></td>
+        <td><a href ="{{=URL('profile',args = image.user.id)}}" >{{=image.report_by}}</a></td>
+        <td>{{=image.reason}}</td>
+    </tr>
+    {{pass}}
+</table>

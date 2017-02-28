@@ -1,0 +1,2 @@
+def post():
+    return dict(comments = db(db.comment_post).select(),form=SQLFORM(db.comment_post).process())

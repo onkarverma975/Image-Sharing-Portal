@@ -1,0 +1,28 @@
+{{extend 'layout.html'}}
+<style>
+#suggest_person { position: relative; }
+.suggest_person { background: white; border: solid 1px #55A6C8; }
+.suggest_person DIV { padding: 2px 4px 2px 4px; }
+</style>
+    <div id="tar-for-tag"></div>
+<form id="tag_form">
+    <input name="person" id="per" type='text'/>
+    <br />
+    <div style="position: absolute;" id="suggest_person"
+     class="suggest_person"></div>
+    <input type="submit" />
+</form>
+<script>
+     jQuery("#per").keyup(function(){
+     ajax('tag_selector', ['person'], 'suggest_person')
+     }
+     );
+ </script>
+
+<script>
+     jQuery('#tag_form').submit(function() {
+     ajax('{{=URL('tagging')}}', ['person'], 'tar-for-tag');
+     document.getElementById('#person').value=''
+     return false;
+     });
+</script>

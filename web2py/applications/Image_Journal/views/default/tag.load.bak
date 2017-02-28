@@ -1,0 +1,7 @@
+{{for posts in tags:}}
+<div class="post">
+{{=posts.created_by.first_name}}
+tagged <blockquote class="post_body">{{=posts.person}}</blockquote>
+</div>
+{{pass}}
+{{=forms}}

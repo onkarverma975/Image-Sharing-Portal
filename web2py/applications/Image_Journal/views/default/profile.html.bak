@@ -1,0 +1,49 @@
+{{extend 'layout.html'}}
+
+<h2>
+
+</h2>
+<br><br>
+<h2 class="makecenter">
+    Images uploaded by you
+</h2>
+<br>
+
+    {{for image in image_upl:}}
+<span>
+    <a href ="{{=URL('show',args=image.id)}}" ><img width="200px" height="100px" src="{{=URL('download',args=image.file)}}"/></a>
+</span>
+    {{pass}}
+<br><br>
+<h2 class="makecenter">
+    Images liked by you
+</h2>
+<br>
+
+    {{for image in image_like:}}
+    {{ files=db( db.image.id == image.like_id ).select().first().file}}
+<span><a href ="{{=URL('show',args=image.like_id)}}" ><img width="200px" height="100px" src="{{=URL('download',args=db( db.image.id == image.like_id ).select().first().file)}}"/></a></span>
+    {{pass}}
+<br><br>
+<h2 class="makecenter">
+    Images you were tagged in
+</h2>
+<br>
+
+    {{for image in image_tag:}}
+    {{ files=db( db.image.id == image.tag_id ).select().first().file}}
+    <span><a href ="{{=URL('show',args=image.tag_id)}}" ><img width="200px" height="100px" src="{{=URL('download',args=db( db.image.id == image.tag_id ).select().first().file)}}"/></a><span>
+    {{pass}}
+
+<br><br>
+<h2 class="makecenter">
+    Images you have reported
+</h2>
+<br>
+
+    {{for image in image_report:}}
+        <span>
+    {{ files=db( db.image.id == image.report_id ).select().first().file}}
+            <a href ="{{=URL('show',args=image.report_id)}}" ><img width="200px" height="100px" src="{{=URL('download',args=db( db.image.id == image.report_id ).select().first().file)}}"/></a>
+        </span>
+    {{pass}}

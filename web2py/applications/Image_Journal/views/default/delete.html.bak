@@ -1,0 +1,38 @@
+{{extend 'layout.html'}}
+<h1>Image: {{=image.title}}</h1>
+<center>
+<img width="800px" height="400px"
+     src="{{=URL('download',args=image.file)}}"/>
+    <br />
+</center>
+{{=LOAD('default','tag_list.load',ajax=True, timeout=1000,times='infinity')}}
+    <h2>
+        Posted by {{=image.author}}
+        <br />
+        at {{=image.created_on}}
+        <br />
+    </h2>
+<h3>
+    Description
+</h3>
+<pre>
+<h4>
+{{=XML(image.description,sanitize=True)}}
+</h4>
+
+
+</pre>
+<form>
+    <label>Delecte this Image</label>
+    <input type="checkbox" id="delete"/>
+</form>
+<script>
+jQuery('input#delete').checked(function(){
+    alert('Are you sure you want to delete this');
+});
+</script>
+<h2><div>Likes: {{=image.likes}}</div></h2>
+<h1>
+    Posts:
+</h1>
+{{=LOAD('default','post_list.load',ajax=True, timeout=1000,times='infinity')}}

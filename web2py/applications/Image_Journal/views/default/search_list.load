@@ -1,0 +1,17 @@
+{{extend 'layout.html'}}
+<table class="table">
+    <tr>
+        <td><h2>Image</h2></td>
+        <td><h2>Likes</h2></td>
+    </tr>
+</table>
+
+<table class="table">
+    {{if ans!=None:}}
+    {{for image in ans:}}
+    <tr>
+            <td><a href ="{{=URL('show',args=image)}}" ><img width="200px" height="100px" src="{{=URL('download',args=db( db.image.id == image ).select().first().file)}}"/></a></td>
+    </tr>
+    {{pass}}
+    {{pass}}
+</table>

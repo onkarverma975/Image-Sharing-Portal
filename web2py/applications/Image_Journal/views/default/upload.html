@@ -1,0 +1,31 @@
+{{extend 'layout.html'}}
+
+<br><br>
+<script>
+    $('#image_file').change(function () {
+        readURL(image_file);
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#image_upload_preview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+<div class="uploadpage">
+    <h1 class="makecenter">
+        Upload a new recepie
+    </h1>
+    <br><br>
+    <center>
+        {{=form}}
+        <div  style="width: 640px;height:640px;">
+    <img id="image_upload_preview" src="#" alt="" style="height:100%;"/>
+        </div>
+    </center>
+</div>
